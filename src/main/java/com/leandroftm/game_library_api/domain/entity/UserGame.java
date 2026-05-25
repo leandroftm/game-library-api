@@ -1,6 +1,8 @@
 package com.leandroftm.game_library_api.domain.entity;
 
 import com.leandroftm.game_library_api.domain.enums.GameStatus;
+import com.leandroftm.game_library_api.exception.domain.user_game.GameStatusAlreadyDroppedException;
+import com.leandroftm.game_library_api.exception.domain.user_game.GameStatusAlreadyPlayingException;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -55,7 +57,7 @@ public class UserGame {
 
     public void startPlaying() {
         if (this.status == GameStatus.PLAYING)
-            throw new IllegalStateException("Game is already playing");
+            throw new GameStatusAlreadyPlayingException();
         if (this.startDate == null)
             this.startDate = LocalDateTime.now();
         this.status = GameStatus.PLAYING;
@@ -64,7 +66,7 @@ public class UserGame {
 
     public void dropGame() {
         if (this.status == GameStatus.DROPPED)
-            throw new IllegalStateException("Game is already dropped");
+            throw new GameStatusAlreadyDroppedException();
         this.status = GameStatus.DROPPED;
         this.startDate = null;
         this.completedDate = null;
