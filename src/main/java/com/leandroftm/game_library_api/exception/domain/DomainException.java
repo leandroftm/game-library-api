@@ -1,4 +1,4 @@
-package com.leandroftm.game_library_api.exception;
+package com.leandroftm.game_library_api.exception.domain;
 
 import com.leandroftm.game_library_api.exception.Enum.ErrorCode;
 import lombok.Getter;
