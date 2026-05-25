@@ -1,5 +1,7 @@
 package com.leandroftm.game_library_api.domain.entity;
 
+import com.leandroftm.game_library_api.exception.domain.user.UserAlreadyActiveException;
+import com.leandroftm.game_library_api.exception.domain.user.UserAlreadyInactiveException;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -68,13 +70,13 @@ public class User {
 
     public void enable() {
         if (this.active)
-            throw new RuntimeException("already activated");
+            throw new UserAlreadyActiveException();
         this.active = true;
     }
 
     public void disable() {
         if (!this.active)
-            throw new RuntimeException("already deactivated");
+            throw new UserAlreadyInactiveException();
         this.active = false;
         this.disabledAt = LocalDateTime.now();
     }
