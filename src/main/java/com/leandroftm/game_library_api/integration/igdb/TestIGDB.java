@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Test {
+public class TestIGDB {
 
     @Bean
     CommandLineRunner test(IgdbClient igdbClient) {
