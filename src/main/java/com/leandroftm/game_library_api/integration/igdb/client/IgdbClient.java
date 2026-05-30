@@ -15,23 +15,8 @@ public class IgdbClient {
 
     public List<IgdbGameResponse> searchGames(String gameName) {
         String body = """
-                search "%s;
-                fields name, platforms.name;
-                limit 10;
-                """.formatted(gameName);
-
-        return restClient.post()
-                .uri("/games")
-                .retrieve()
-                .body(new ParameterizedTypeReference<>() {
-                });
-    }
-
-    public String searchGame(String gameName) {
-
-        String body = """
                 search "%s";
-                fields name;
+                fields name, platforms.name, first_release_date, genres.name;
                 limit 10;
                 """.formatted(gameName);
 
@@ -39,6 +24,23 @@ public class IgdbClient {
                 .uri("/games")
                 .body(body)
                 .retrieve()
-                .body(String.class);
+                .body(new ParameterizedTypeReference<List<IgdbGameResponse>>() {
+                });
+    }
+
+    public String searchGame(String gameName) {
+
+        String body = """
+                search "%s";
+                fields name, platforms.name, first_release_date, genres.name;
+                limit 10;
+                """.formatted(gameName);
+
+        return restClient.post()
+                .uri("/games")
+                .body(body)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+        });
     }
 }
