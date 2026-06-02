@@ -1,6 +1,8 @@
 package com.leandroftm.game_library_api.domain.entity;
 
 import com.leandroftm.game_library_api.domain.enums.GameStatus;
+import com.leandroftm.game_library_api.exception.domain.user_game.GameAlreadyFavoriteException;
+import com.leandroftm.game_library_api.exception.domain.user_game.GameAlreadyNotFavoriteException;
 import com.leandroftm.game_library_api.exception.domain.user_game.GameStatusAlreadyDroppedException;
 import com.leandroftm.game_library_api.exception.domain.user_game.GameStatusAlreadyPlayingException;
 import jakarta.persistence.*;
@@ -26,8 +28,6 @@ public class UserGame {
     @Column(nullable = false)
     private boolean favorite;
     @Column(nullable = false)
-    private String platformName;
-    @Column(nullable = false)
     private LocalDateTime createdAt;
     private LocalDateTime startDate;
     private LocalDateTime completedDate;
@@ -38,11 +38,10 @@ public class UserGame {
     @JoinColumn(name = "user_id")
     User user;
 
-    public UserGame(Long igdbId, String gameName, boolean favorite, String platformName) {
+    public UserGame(Long igdbId, String gameName) {
         this.igdbId = igdbId;
         this.gameName = gameName;
-        this.favorite = favorite;
-        this.platformName = platformName;
+        this.favorite = false;
         this.status = GameStatus.TO_PLAY;
     }
 
@@ -53,6 +52,19 @@ public class UserGame {
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void favoriteGame() {
+        if(this.favorite) {
+            throw new GameAlreadyFavoriteException();
+        }
+        this.favorite = true;
+    }
+    public void unfavoriteGame() {
+        if(!this.favorite) {
+            throw new GameAlreadyNotFavoriteException();
+        }
+        this.favorite = false;
     }
 
     public void startPlaying() {
