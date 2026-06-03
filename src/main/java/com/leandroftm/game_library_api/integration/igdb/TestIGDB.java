@@ -56,16 +56,27 @@ public class TestIGDB {
 //        };
 //    }
 
-    @Bean
-    CommandLineRunner command(IgdbClient client, IgdbMapper mapper) {
-       return args -> {
-           List<IgdbGameResponse> igdbResponse = client.searchGames("fallout");
-           if (igdbResponse != null) {
-               igdbResponse.forEach(response -> {
-                   GameSearchResponse game = mapper.toResponse(response);
-                   System.out.println(game);
-               });
-           }
-       } ;
-    }
+//    @Bean
+//    CommandLineRunner command(IgdbClient client, IgdbMapper mapper) {
+//       return args -> {
+//           List<IgdbGameResponse> igdbResponse = client.searchGames("fallout");
+//           if (igdbResponse != null) {
+//               igdbResponse.forEach(response -> {
+//                   GameSearchResponse game = mapper.toResponse(response);
+//                   System.out.println(game);
+//               });
+//           }
+//       } ;
+//    }
+
+//    @Bean
+//    CommandLineRunner test(IgdbClient igdbClient, IgdbMapper igdbMapper) {
+//
+//        return args -> {
+//            IgdbGameResponse igdbResponse = igdbClient.searchGameById(10L);
+//            GameSearchResponse game = igdbMapper.toResponse(igdbResponse);
+//            System.out.println(game);
+//
+//        };
+//    }
 }
