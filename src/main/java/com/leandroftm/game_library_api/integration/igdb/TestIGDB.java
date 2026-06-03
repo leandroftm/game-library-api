@@ -19,64 +19,64 @@ import java.util.List;
 public class TestIGDB {
 
 
-//    @Bean
-//    CommandLineRunner test(IgdbClient igdbClient) {
-//        return args -> {
-//            List<IgdbGameResponse> response = igdbClient.searchGames("fallout");
-//            //String responseString = igdbClient.searchGame("fallout");
-//            //System.out.println(responseString);
-//
-//            if (response != null) {
-//                response.forEach(games -> {
-//                    System.out.println("Game: " + games.name());
-//
-//                    if (games.firstReleaseDate() != null) {
-//                        Instant instant = Instant.ofEpochSecond(games.firstReleaseDate());
-//                        LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-//
-//                        System.out.println("    First release date: " + date.toString());
-//                    }
-//                    if (games.platforms() != null) {
-//                        List<String> platforms = new ArrayList<>();
-//                        games.platforms().forEach(platform -> {
-//                            platforms.add(platform.name());
-//                        });
-//                        System.out.println("    Platforms: " + String.join(", ", platforms));
-//                    }
-//                    if (games.genres() != null) {
-//                        List<String> genres = new ArrayList<>();
-//                        games.genres().forEach(genre -> {
-//                           genres.add(genre.name());
-//                        });
-//                        System.out.println("    Genres: " + String.join(", ", genres));
-//                    }
-//                    System.out.println();
-//                });
-//            }
-//        };
-//    }
+    @Bean
+    CommandLineRunner test(IgdbClient igdbClient) {
+        return args -> {
+            List<IgdbGameResponse> response = igdbClient.searchGames("fallout", 10, 1L);
+            //String responseString = igdbClient.searchGame("fallout");
+            //System.out.println(responseString);
 
-//    @Bean
-//    CommandLineRunner command(IgdbClient client, IgdbMapper mapper) {
-//       return args -> {
-//           List<IgdbGameResponse> igdbResponse = client.searchGames("fallout");
-//           if (igdbResponse != null) {
-//               igdbResponse.forEach(response -> {
-//                   GameSearchResponse game = mapper.toResponse(response);
-//                   System.out.println(game);
-//               });
-//           }
-//       } ;
-//    }
+            if (response != null) {
+                response.forEach(games -> {
+                    System.out.println("Game: " + games.name());
 
-//    @Bean
-//    CommandLineRunner test(IgdbClient igdbClient, IgdbMapper igdbMapper) {
-//
-//        return args -> {
-//            IgdbGameResponse igdbResponse = igdbClient.searchGameById(10L);
-//            GameSearchResponse game = igdbMapper.toResponse(igdbResponse);
-//            System.out.println(game);
-//
-//        };
-//    }
+                    if (games.firstReleaseDate() != null) {
+                        Instant instant = Instant.ofEpochSecond(games.firstReleaseDate());
+                        LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
+                        System.out.println("    First release date: " + date.toString());
+                    }
+                    if (games.platforms() != null) {
+                        List<String> platforms = new ArrayList<>();
+                        games.platforms().forEach(platform -> {
+                            platforms.add(platform.name());
+                        });
+                        System.out.println("    Platforms: " + String.join(", ", platforms));
+                    }
+                    if (games.genres() != null) {
+                        List<String> genres = new ArrayList<>();
+                        games.genres().forEach(genre -> {
+                           genres.add(genre.name());
+                        });
+                        System.out.println("    Genres: " + String.join(", ", genres));
+                    }
+                    System.out.println();
+                });
+            }
+        };
+    }
+
+    @Bean
+    CommandLineRunner command(IgdbClient client, IgdbMapper mapper) {
+       return args -> {
+           List<IgdbGameResponse> igdbResponse = client.searchGames("fallout", 10, 1L);
+           if (igdbResponse != null) {
+               igdbResponse.forEach(response -> {
+                   GameSearchResponse game = mapper.toResponse(response);
+                   System.out.println(game);
+               });
+           }
+       } ;
+    }
+
+    @Bean
+    CommandLineRunner test(IgdbClient igdbClient, IgdbMapper igdbMapper) {
+
+        return args -> {
+            IgdbGameResponse igdbResponse = igdbClient.searchGameById(10L);
+            GameSearchResponse game = igdbMapper.toResponse(igdbResponse);
+            System.out.println(game);
+
+        };
+    }
 }
