@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/java/com/leandroftm/game_library_api/integration/igdb/TestIGDB.java
