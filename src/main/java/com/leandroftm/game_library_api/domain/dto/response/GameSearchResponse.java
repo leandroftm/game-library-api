@@ -1,4 +1,4 @@
-package com.leandroftm.game_library_api.domain.dto;
+package com.leandroftm.game_library_api.domain.dto.response;
 
 import java.time.LocalDate;
 import java.util.List;

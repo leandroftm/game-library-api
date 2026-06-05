@@ -1,6 +1,6 @@
 package com.leandroftm.game_library_api.service;
 
-import com.leandroftm.game_library_api.domain.dto.GameSearchResponse;
+import com.leandroftm.game_library_api.domain.dto.response.GameSearchResponse;
 import com.leandroftm.game_library_api.integration.igdb.client.IgdbClient;
 import com.leandroftm.game_library_api.integration.igdb.dto.IgdbGameResponse;
 import com.leandroftm.game_library_api.mapper.IgdbMapper;

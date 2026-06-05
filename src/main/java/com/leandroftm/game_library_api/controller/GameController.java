@@ -1,6 +1,6 @@
 package com.leandroftm.game_library_api.controller;
 
-import com.leandroftm.game_library_api.domain.dto.GameSearchResponse;
+import com.leandroftm.game_library_api.domain.dto.response.GameSearchResponse;
 import com.leandroftm.game_library_api.service.IgdbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
