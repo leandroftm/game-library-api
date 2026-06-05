@@ -34,18 +34,13 @@ public class User {
     private LocalDateTime updatedAt;
     private LocalDateTime disabledAt;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserGame> game = new ArrayList<>() ;
+    private List<UserGame> games = new ArrayList<>() ;
 
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = createdAt;
         this.active = true;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
     }
 
     public User(String userName, String password, String email) {
@@ -56,7 +51,7 @@ public class User {
 
     public void addGame(UserGame game) {
         game.associateUser(this);
-        this.game.add(game);
+        this.games.add(game);
     }
 
     public void updateDetails(String userName, String password, String email) {
@@ -71,6 +66,7 @@ public class User {
     public void enable() {
         if (this.active)
             throw new UserAlreadyActiveException();
+        this.updatedAt = LocalDateTime.now();
         this.active = true;
     }
 
@@ -78,6 +74,7 @@ public class User {
         if (!this.active)
             throw new UserAlreadyInactiveException();
         this.active = false;
-        this.disabledAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.disabledAt = updatedAt;
     }
 }
