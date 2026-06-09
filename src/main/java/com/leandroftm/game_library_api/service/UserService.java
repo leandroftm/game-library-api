@@ -47,13 +47,13 @@ public class UserService {
 
     public void updateUser(long id, String userName, String password, String email) {
         if(userName != null) {
-            if(userRepository.existsByIdAndUserNameNot(id, userName)){
+            if(userRepository.existsByUserNameAndNot(userName, id)){
                 throw new UserNameAlreadyExistsException();
             }
         }
 
         if(email != null) {
-            if(userRepository.existsByIdAndEmailNot(id, email)){
+            if(userRepository.existsByEmailAndIdNot(email, id)){
                 throw new UserEmailAlreadyExistsException();
             }
         }
