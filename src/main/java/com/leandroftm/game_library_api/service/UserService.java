@@ -8,6 +8,8 @@ import com.leandroftm.game_library_api.exception.domain.user.UserNameAlreadyExis
 import com.leandroftm.game_library_api.exception.domain.user.UserNotFoundException;
 import com.leandroftm.game_library_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +31,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public Page<UserResponse> getUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(UserResponse::new);
+    }
+
     public UserResponse getUserById(Long id) {
         return userRepository.findById(id)
                 .map(UserResponse::new)
@@ -47,7 +53,7 @@ public class UserService {
 
     public void updateUser(long id, String userName, String password, String email) {
         if(userName != null) {
-            if(userRepository.existsByUserNameAndNot(userName, id)){
+            if(userRepository.existsByUserNameAndIdNot(userName, id)){
                 throw new UserNameAlreadyExistsException();
             }
         }
@@ -78,4 +84,5 @@ public class UserService {
         user.disable();
         userRepository.save(user);
     }
+
 }
