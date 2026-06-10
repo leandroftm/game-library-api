@@ -10,5 +10,6 @@ CREATE TABLE user_games
     status         VARCHAR(30),
     user_id        BIGINT,
 
+    CONSTRAINT  uk_user_game UNIQUE (user_id, igdb_id),
     CONSTRAINT fk_user_games_users FOREIGN KEY (user_id) REFERENCES users (id)
-)
+);

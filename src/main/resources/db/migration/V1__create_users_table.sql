@@ -6,7 +6,8 @@ CREATE TABLE users(
     active BOOLEAN NOT NULL ,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
+    disabled_at TIMESTAMP,
 
     CONSTRAINT uc_users_user_name UNIQUE (user_name),
     CONSTRAINT uc_users_email UNIQUE (email)
-)
+);
