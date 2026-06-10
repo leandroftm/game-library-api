@@ -1,10 +1,7 @@
 package com.leandroftm.game_library_api.domain.entity;
 
 import com.leandroftm.game_library_api.domain.enums.GameStatus;
-import com.leandroftm.game_library_api.exception.domain.user_game.GameAlreadyFavoriteException;
-import com.leandroftm.game_library_api.exception.domain.user_game.GameAlreadyNotFavoriteException;
-import com.leandroftm.game_library_api.exception.domain.user_game.GameStatusAlreadyDroppedException;
-import com.leandroftm.game_library_api.exception.domain.user_game.GameStatusAlreadyPlayingException;
+import com.leandroftm.game_library_api.exception.domain.user_game.*;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -79,6 +76,8 @@ public class UserGame {
     public void dropGame() {
         if (this.status == GameStatus.DROPPED)
             throw new GameStatusAlreadyDroppedException();
+        if(this.status == GameStatus.COMPLETED)
+            throw new CompletedGameCannotBeDroppedException();
         this.status = GameStatus.DROPPED;
         this.startDate = null;
         this.completedDate = null;
