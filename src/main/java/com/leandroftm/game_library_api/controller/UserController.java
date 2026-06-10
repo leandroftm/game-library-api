@@ -2,6 +2,7 @@ package com.leandroftm.game_library_api.controller;
 
 import com.leandroftm.game_library_api.domain.dto.request.AddGameRequest;
 import com.leandroftm.game_library_api.domain.dto.request.CreateUserRequest;
+import com.leandroftm.game_library_api.domain.dto.request.UpdateGameStatusRequest;
 import com.leandroftm.game_library_api.domain.dto.response.UserResponse;
 import com.leandroftm.game_library_api.service.UserGameService;
 import com.leandroftm.game_library_api.service.UserService;
@@ -40,6 +41,25 @@ public class UserController {
     public ResponseEntity<Void> addGame(@PathVariable Long userId, @RequestBody AddGameRequest request) {
         userGameService.addGame(userId, request);
 
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{userId}/games/{gameId}/status")
+    public ResponseEntity<Void> changeGameStatus(@PathVariable Long userId, @PathVariable Long gameId, @RequestBody UpdateGameStatusRequest request){
+        userGameService.updateGameStatus(userId, gameId, request);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{userId}/games/{gameId}/favorite")
+    public ResponseEntity<Void> favoriteGame(@PathVariable Long userId, @PathVariable Long gameId){
+        userGameService.favoriteGame(userId, gameId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{userId}/games/{gameId}/unfavorite")
+    public ResponseEntity<Void> unfavoriteGame(@PathVariable Long userId, @PathVariable Long gameId){
+        userGameService.unfavoriteGame(userId, gameId);
         return ResponseEntity.noContent().build();
     }
 }
