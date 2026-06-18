@@ -11,7 +11,7 @@ public record UserGameResponse(
         String gameName,
         boolean favorite,
         LocalDateTime startDate,
-        LocalDateTime completeDate,
+        LocalDateTime completedDate,
         GameStatus status
 ) {
     public UserGameResponse(UserGame userGame){
