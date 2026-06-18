@@ -19,7 +19,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void createUser(CreateUserRequest request) {
-        if (userRepository.existsByUserName(request.userName())) {
+        if (userRepository.existsByUserNameIgnoreCase(request.userName())) {
             throw new UserNameAlreadyExistsException();
         }
 
@@ -42,7 +42,7 @@ public class UserService {
     }
 
     public UserResponse getUserByName(String userName) {
-        return userRepository.findByUserName(userName)
+        return userRepository.findByUserNameIgnoreCase(userName)
                 .orElseThrow(UserNotFoundException::new);
     }
 
@@ -53,7 +53,7 @@ public class UserService {
 
     public void updateUser(long id, String userName, String password, String email) {
         if(userName != null) {
-            if(userRepository.existsByUserNameAndIdNot(userName, id)){
+            if(userRepository.existsByUserNameIgnoreCaseAndIdNot(userName, id)){
                 throw new UserNameAlreadyExistsException();
             }
         }
