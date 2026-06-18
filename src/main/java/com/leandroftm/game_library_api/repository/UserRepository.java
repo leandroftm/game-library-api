@@ -7,15 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    boolean existsByUserName(String userName);
+    boolean existsByUserNameIgnoreCase(String userName);
 
     boolean existsByEmail(String email);
 
     Optional<UserResponse> findByEmail(String email);
 
-    Optional<UserResponse>  findByUserName(String userName);
+    Optional<UserResponse> findByUserNameIgnoreCase(String userName);
 
-    boolean existsByUserNameAndIdNot(String userName, long id);
+    boolean existsByUserNameIgnoreCaseAndIdNot(String userName, long id);
 
     boolean existsByEmailAndIdNot(String email, long id);
 }
