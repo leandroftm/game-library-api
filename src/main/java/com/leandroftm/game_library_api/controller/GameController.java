@@ -2,6 +2,7 @@ package com.leandroftm.game_library_api.controller;
 
 import com.leandroftm.game_library_api.domain.dto.response.GameSearchResponse;
 import com.leandroftm.game_library_api.service.IgdbService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/games")
-public class GameController {
+@SecurityRequirement(name = "bearerAuth")
+public class GameController{
 
     private final IgdbService igdbService;
 
