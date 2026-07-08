@@ -1,22 +1,17 @@
 package com.leandroftm.game_library_api.domain.dto.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 public record CreateUserRequest(
         @NotBlank
-        @Min(5)
-        @Max(25)
+        @Size(min = 5, max = 50)
         String userName,
         @NotBlank
-        @Min(6)
-        @Max(25)
+        @Size(min = 6, max = 25)
         String password,
         @NotBlank
         @Email
-        @Max(50)
+        @Size(min = 6, max = 100)
         String email
 ) {
 }
