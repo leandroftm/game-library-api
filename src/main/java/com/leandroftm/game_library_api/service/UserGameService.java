@@ -34,14 +34,15 @@ public class UserGameService {
 
     public void addGame(long userId, AddGameRequest request) {
         GameSearchResponse igdbResponse = igdbService.searchGameById(request.igdbGameId());
+
+        if (userGameRepository.existsByUserIdAndIgdbId(userId, igdbResponse.id())) {
+            throw new GameAlreadyExistsException();
+        }
+
         UserGame userGame = new UserGame(
                 igdbResponse.id(),
                 igdbResponse.name()
         );
-
-        if (userGameRepository.existsByUserIdAndIgdbId(userId, userGame.getId())) {
-            throw new GameAlreadyExistsException();
-        }
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
