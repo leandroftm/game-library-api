@@ -22,9 +22,9 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true, length = 25)
     private String userName;
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false)
     private String password;
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private boolean active;
@@ -40,13 +40,13 @@ public class User {
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = createdAt;
-        this.active = true;
     }
 
     public User(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.active = true;
     }
 
     public void addGame(UserGame game) {
