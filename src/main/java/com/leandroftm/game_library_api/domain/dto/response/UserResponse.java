@@ -7,7 +7,6 @@ import java.util.List;
 public record UserResponse(
         Long id,
         String userName,
-        String password,
         String email,
         List<UserGameResponse> games
 ) {
@@ -15,7 +14,6 @@ public record UserResponse(
         this(
                 user.getId(),
                 user.getUserName(),
-                user.getPassword(),
                 user.getEmail(),
                 user.getGames()
                         .stream()
